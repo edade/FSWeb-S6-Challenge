@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 export default function Header(props) {
@@ -16,7 +17,8 @@ export default function Header(props) {
           value={search}
           onChange={changeHandler}
           name="Search"
-        ></input>
+          autoFocus
+        />
       </StyledHeader>
     </div>
   );

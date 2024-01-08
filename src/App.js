@@ -2,15 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Karakterler from "./components/Karakterler";
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
-  // Fetch characters from the API in an effect hook. Remember, anytime you have a
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
-  const [char, setChar] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
 
   const changeHandler = (e) => {
@@ -22,7 +20,13 @@ const App = () => {
     axios
       .get("https://swapi.dev/api/people/")
       .then((res) => {
-        setChar(res.data);
+        const searchResults = res.data.filter((item) => {
+          return (
+            item.name.toLowerCase().includes(search.toLowerCase()) ||
+            item.hair_color.toLowerCase().includes(search.toLowerCase())
+          );
+        });
+        setCharacters(searchResults);
       })
       .catch((err) => {
         console.error(err);
@@ -31,7 +35,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header></Header>
+      <Header search={search} changeHandler={changeHandler} />
+      <Karakterler characters={characters} />
     </div>
   );
 };

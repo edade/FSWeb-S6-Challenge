@@ -5,8 +5,8 @@ import Filmler from "./Filmler";
 
 export default function Karakter(props) {
   const { id, character } = props;
-  const styDiv = styled.div`
-    font-size: 2rem;
+  const StyDiv = styled.div`
+    font-size: 1.5rem;
   `;
 
   return (
@@ -14,10 +14,12 @@ export default function Karakter(props) {
       <AccordionItem>
         <AccordionHeader targetId={id}>{character.name}</AccordionHeader>
         <AccordionBody accordionId={id}>
-          <styDiv>Gender: {character.gender} </styDiv>
-          <styDiv>Height: {character.height}</styDiv>
-          <styDiv>Mass: {character.mass}</styDiv>
-          <Filmler />
+          <StyDiv>Gender: {character.gender}</StyDiv>
+          <StyDiv>Height: {character.height}</StyDiv>
+          <StyDiv>Mass: {character.mass}</StyDiv>
+          {character.films.map((item) => {
+            return <Filmler name={item} />;
+          })}
         </AccordionBody>
       </AccordionItem>
     </div>
